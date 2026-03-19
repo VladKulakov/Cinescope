@@ -25,36 +25,6 @@ def test_user():
     }
 
 @pytest.fixture(scope="session")
-def registered_user(requester, test_user):
-    """
-    Фикстура для регистрации и получения данных зарегистрированного пользователя.
-    """
-    response = requester.send_request(
-        method="POST",
-        endpoint=REGISTER_ENDPOINT,
-        data=test_user,
-        expected_status=201
-    )
-    return response
-
-@pytest.fixture(scope="session")
-def authorization_user(requester, test_user):
-    """
-    Фикстура для регистрации и получения данных зарегистрированного пользователя.
-    """
-    login_data = {
-        "email": test_user["email"],
-        "password": test_user["password"]
-    }
-    response = requester.send_request(
-        method="POST",
-        endpoint=LOGIN_ENDPOINT,
-        data=login_data,
-        expected_status=200
-    )
-    return response
-
-@pytest.fixture(scope="session")
 def requester():
     """
     Фикстура для создания экземпляра CustomRequester.
