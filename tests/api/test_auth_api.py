@@ -1,4 +1,5 @@
 class TestAuthAPI:
+    response_register = None
     def test_register_user(self, api_manager, test_user):
         """
         Тест на регистрацию пользователя.
@@ -25,3 +26,24 @@ class TestAuthAPI:
         assert "accessToken" in response_data, "Токен доступа отсутствует в ответе"
         assert response_data["user"]["email"] == registered_user.json()["email"], "Email не совпадает"
         assert response_data["user"]["roles"] == test_user["roles"], "Роли в ответе не соответствуют зарегистрированным"
+        assert "id" in response_data["user"], "ID пользователя отсутствует в ответе"
+        login_data = [registered_user.json()["email"], registered_user.password]
+        api_manager.auth_api.authenticate(login_data)
+        api_manager.user_api.delete_user(registered_user.json()['id'])
+
+    def test_authenticate_delite_user(self, api_manager, registered_user, test_user):
+        """
+        Тест на авторизацию пользователя и обновление токена, с последующим удалением.
+        """
+        login_data = [registered_user.json()["email"], registered_user.password]
+        api_manager.auth_api.authenticate(login_data)
+        api_manager.user_api.delete_user(registered_user.json()['id'])
+
+
+    def test_negative_scenario(self, api_manager, registered_user, test_user):
+        # Тест на удаление пользователя без токена в session
+        api_manager.user_api.delete_user(registered_user.json()['id'], 401)
+        # Тест на получение данных, без прав админа невозможно
+        api_manager.user_api.get_user_info(registered_user.json()['id'], 401)
+
+

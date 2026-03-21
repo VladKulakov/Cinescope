@@ -7,6 +7,7 @@ HEADERS = {
 
 LOGIN_ENDPOINT = "/login"
 REGISTER_ENDPOINT = "/register"
+MOVIES_ENDPOINT = "/movies"
 
 """
 Этот файл содержит все базовые константы проекта, такие как базовый URL, заголовки для

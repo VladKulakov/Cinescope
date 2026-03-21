@@ -8,7 +8,6 @@ class UserAPI(CustomRequester):
 
     def __init__(self, session):
         super().__init__(session=session, base_url=BASE_URL)
-        self.session = session
 
     def get_user_info(self, user_id, expected_status=200):
         """
@@ -22,7 +21,7 @@ class UserAPI(CustomRequester):
             expected_status=expected_status
         )
 
-    def delete_user(self, user_id, expected_status=204):
+    def delete_user(self, user_id, expected_status=200):
         """
         Удаление пользователя.
         :param user_id: ID пользователя.
