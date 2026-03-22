@@ -55,7 +55,6 @@ class TestAuthAPI:
         api_manager.auth_api.authenticate(login_data)
         api_manager.user_api.delete_user(registered_user.json()['id'])
 
-
 class TestMovieApi:
     def test_get_10_movie(self, api_manager):
         """
@@ -103,8 +102,14 @@ class TestMovieApi:
             response_locations = response_json['movies'][number]['location']
             assert response_locations == locations, "Локация не равна указанной"
 
-
-
+    def test_get_negative(self, api_manager):
+        locations = "USA"
+        api_manager.movies_api.receiving_post(params={"locations": locations}, status=400)
+        min_price = 100
+        max_price = 1
+        api_manager.movies_api.receiving_post(params={"minPrice": min_price, "maxPrice": max_price},status=400)
+        pagesize = 30
+        response = api_manager.movies_api.receiving_post(params={"pageSize": pagesize},status=400)
 
     # def test_creation_movie(self, api_manager, generate_movies):
     #     api_manager.movies_api.update_headers()
