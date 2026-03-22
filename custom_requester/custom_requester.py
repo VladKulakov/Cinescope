@@ -2,6 +2,7 @@ import json
 import logging
 import os
 
+
 class CustomRequester:
     """
     Кастомный реквестер для стандартизации и упрощения отправки HTTP-запросов.
@@ -15,9 +16,9 @@ class CustomRequester:
         self.session = session
         self.base_url = base_url
         self.headers = self.base_headers.copy()
+        self.session.headers.update(self.headers)
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-
 
     def _update_session_headers(self, **kwargs):
         # """
@@ -28,8 +29,7 @@ class CustomRequester:
         self.headers.update(kwargs)  # Обновляем базовые заголовки
         self.session.headers.update(self.headers)  # Обновляем заголовки в текущей сессии
 
-
-    def send_request(self, method, endpoint, data=None, expected_status=200, need_logging=True):
+    def send_request(self, method, endpoint, data=None, expected_status=200, need_logging=True, params=None):
         # """
         # Универсальный метод для отправки запросов.
         # :param method: HTTP метод (GET, POST, PUT, DELETE и т.д.).
@@ -40,14 +40,12 @@ class CustomRequester:
         # :return: Объект ответа requests.Response.
         # """
         url = f"{self.base_url}{endpoint}"
-        response = self.session.request(method, url, json=data, headers=self.headers)
+        response = self.session.request(method, url, json=data, params=params)
         if need_logging:
             self.log_request_and_response(response)
         if response.status_code != expected_status:
             raise ValueError(f"Unexpected status code: {response.status_code}. Expected: {expected_status}")
         return response
-
-
 
     def log_request_and_response(self, response):
         try:

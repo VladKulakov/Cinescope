@@ -1,12 +1,9 @@
-from faker import Faker
 import pytest
 import requests
-from constants import BASE_URL, REGISTER_ENDPOINT
-from custom_requester.custom_requester import CustomRequester
 from utils.data_generator import DataGenerator
 from clients.api_manager import ApiManager
-
-faker = Faker()
+from faker import Faker
+faker = Faker
 
 @pytest.fixture
 def test_user():
@@ -25,28 +22,13 @@ def test_user():
     }
 
 @pytest.fixture
-def registered_user(requester, test_user):
+def registered_user(api_manager, test_user):
     """
     Фикстура для регистрации и получения данных зарегистрированного пользователя.
     """
-    response = requester.send_request(
-        method="POST",
-        endpoint=REGISTER_ENDPOINT,
-        data=test_user,
-        expected_status=201
-    )
+    response = api_manager.auth_api.register_user(test_user)
     response.password = test_user["password"]
     return response
-
-
-
-@pytest.fixture(scope="session")
-def requester():
-    """
-    Фикстура для создания экземпляра CustomRequester.
-    """
-    session = requests.Session()
-    return CustomRequester(session=session, base_url=BASE_URL)
 
 @pytest.fixture(scope="session")
 def session():
@@ -57,11 +39,34 @@ def session():
     yield http_session
     http_session.close()
 
-
-
 @pytest.fixture(scope="session")
 def api_manager(session):
     """
     Фикстура для создания экземпляра ApiManager.
     """
     return ApiManager(session)
+
+
+# @pytest.fixture
+# def generate_movies(faker):
+#     """
+#     Генерация movies.
+#     """
+#     return {
+#         "name": f"{faker.unique.word().capitalize()}",
+#         "imageUrl": "https://example.com/image.png",
+#         "price": faker.random_int(100, 1000),
+#         "description": faker.paragraph(1),
+#         "location": faker.random_element(elements=["MSK", "SPB"]),
+#         "published": True,
+#         "genreId": faker.random_int(1, 10)
+#    }
+
+
+# @pytest.fixture(scope="session")
+# def requester():
+#     """
+#     Фикстура для создания экземпляра CustomRequester.
+#     """
+#     session = requests.Session()
+#     return CustomRequester(session=session, base_url=AUTH_DEV_URL)

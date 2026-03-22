@@ -23,12 +23,13 @@ class DataGenerator:
         - Допустимые символы.
         - Длина от 8 до 20 символов.
         """
-        letters = random.choices(string.ascii_lowercase + string.ascii_uppercase, k=3)
-        digits = random.choices(string.digits, k=3)
+        letters = random.choices(string.ascii_lowercase, k=1)
+        upper = random.choices(string.ascii_uppercase, k=1)
+        digits = random.choices(string.digits, k=4)
         special_chars = "?@#$%^&*|:"
         all_chars = string.ascii_letters + string.digits + special_chars
         count_number = random.randint(2, 14)
         remaining_chars = random.choices(all_chars, k=count_number)
-        password = letters + digits + remaining_chars
+        password = letters + upper + digits + remaining_chars
         random.shuffle(password)
         return ''.join(password)

@@ -11,7 +11,6 @@ class ApiManager:
         Инициализация ApiManager.
         :param session: HTTP-сессия, используемая всеми API-классами.
         """
-        self.session = session
         self.auth_api = AuthAPI(session)
         self.user_api = UserAPI(session)
         self.movies_api = MoviesAPI(session)
