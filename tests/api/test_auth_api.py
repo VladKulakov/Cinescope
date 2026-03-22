@@ -109,7 +109,7 @@ class TestMovieApi:
         max_price = 1
         api_manager.movies_api.receiving_post(params={"minPrice": min_price, "maxPrice": max_price},status=400)
         pagesize = 30
-        response = api_manager.movies_api.receiving_post(params={"pageSize": pagesize},status=400)
+        api_manager.movies_api.receiving_post(params={"pageSize": pagesize},status=400)
 
     # def test_creation_movie(self, api_manager, generate_movies):
     #     api_manager.movies_api.update_headers()
