@@ -59,6 +59,17 @@ class TestMovieApi:
         common_user.api.movies_api.receiving_post(params={"pageSize": pagesize},
                                               expected_status=400)
 
-    def test_creation_movie(self, super_admin, generate_movie):
-        response = super_admin.api.movies_api.create_movie(generate_movie, 201)
-        response_json = response.json()
+    from typing import Dict
+    min_price = 1
+    max_price = 100
+    locations = "SPB"
+    genreld = 3
+    import pytest
+    @pytest.mark.parametrize("params, expected_status", [
+        ({"minPrice": min_price, "maxPrice": max_price}, 200),
+        ({"locations": locations}, 200),
+        ({"genreld": genreld}, 200),
+    ], ids=["Price", "location", "genreld"])
+    def test_filter(self, params, expected_status, api_manager):
+         api_manager.movies_api.receiving_post(params=params, expected_status=expected_status)
+
