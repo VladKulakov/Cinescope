@@ -1,5 +1,6 @@
 import random
 import string
+import pytest
 from faker import Faker
 faker = Faker()
 
@@ -33,3 +34,15 @@ class DataGenerator:
         password = letters + upper + digits + remaining_chars
         random.shuffle(password)
         return ''.join(password)
+
+    @staticmethod
+    def generate_movies():
+        return {
+            "name": faker.unique.word().capitalize(),
+            "imageUrl": faker.image_url(),
+            "price": faker.random_int(100, 1000),
+            "description": faker.paragraph(1),
+            "location": faker.random_element(elements=["MSK", "SPB"]),
+            "published": True,
+            "genreId": faker.random_int(1, 10)
+        }
