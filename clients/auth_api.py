@@ -17,7 +17,11 @@ class AuthAPI(CustomRequester):
             expected_status=expected_status
         )
 
-    def login_user(self, login_data, expected_status=200):
+    def login_user(self, data, expected_status=200):
+        login_data = {
+            "email": data[0],
+            "password": data[1]
+        }
         return self.send_request(
             method="POST",
             endpoint=LOGIN_ENDPOINT,
@@ -26,11 +30,7 @@ class AuthAPI(CustomRequester):
         )
 
     def authenticate(self, user_creds):
-        login_data = {
-            "email": user_creds[0],
-            "password": user_creds[1]
-        }
-        response = self.login_user(login_data).json()
+        response = self.login_user(user_creds).json()
         if "accessToken" not in response:
             raise KeyError("token is missing")
         token = response["accessToken"]

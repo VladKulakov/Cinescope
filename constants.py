@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 AUTH_DEV_URL = "https://auth.dev-cinescope.coconutqa.ru"
 API_DEV_URl = "https://api.dev-cinescope.coconutqa.ru"
 HEADERS = {
@@ -12,9 +13,15 @@ REGISTER_ENDPOINT = "/register"
 MOVIES_ENDPOINT = "/movies"
 USER_ENDPOINT = "/user"
 
+RED = '\033[31m'
+GREEN = '\033[32m'
+RESET = '\033[0m'
 
+class Location(str, Enum):
+    MSK = "MSK"
+    SPB = "SPB"
 
-class Roles(Enum):
+class Roles(str, Enum):
     USER = "USER"
     ADMIN = "ADMIN"
     SUPER_ADMIN = "SUPER_ADMIN"

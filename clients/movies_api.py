@@ -6,8 +6,6 @@ class MoviesAPI(CustomRequester):
     def __init__(self, session):
         super().__init__(session=session, base_url=API_DEV_URl)
 
-    def update_headers(self):
-        self._update_session_headers(**{"email": "api1@gmail.com"}, **{"password": "asdqwe123Q"})
 
     def receiving_post(self,params=None, expected_status=200):
         return self.send_request(method="GET",
