@@ -1,6 +1,5 @@
-from typing import Optional
+from typing import Optional, List
 import datetime
-from typing import List
 from pydantic import BaseModel, Field, field_validator
 from constants import Roles, Location
 

@@ -12,11 +12,11 @@ from db_requester.db_client import get_db_session
 from typing import Generator, Callable
 from db_requester.db_helpers import DBHelper
 
+
 @pytest.fixture #была добавлена в файл conftest.py
 def delay_between_retries():
-    time.sleep(2)  # Задержка в 2 секунды\ это не обязательно но
+    time.sleep(2)  # Задержка в 2 секунды\ это не обязательно
     yield          # нужно понимать что такая возможность имеется
-
 
 @pytest.fixture(scope="function")
 def created_test_user(db_helper):
@@ -24,7 +24,6 @@ def created_test_user(db_helper):
     yield user
     if db_helper.get_user_by_id(user.id):
         db_helper.delete_user(user)
-
 
 @pytest.fixture(scope="function")
 def db_helper(db_session) -> DBHelper:

@@ -83,5 +83,5 @@ class TestAuthAPI:
                     check.equal(register_user_response.email, mock_response.email)
 
             with allure.step("Проверка поля banned"):
-                with check("Проверка поля banned"):  # можно использовать вместо allure.step
+                with    check("Проверка поля banned"):  # можно использовать вместо allure.step
                     check.equal(register_user_response.banned, mock_response.banned)
