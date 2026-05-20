@@ -1,7 +1,6 @@
 import allure
 from playwright.sync_api import expect, Page
 from models.page_object_models import BasePage
-from pytest_check import check
 
 class CinescopReviewPage(BasePage):
     def __init__(self, page: Page):
