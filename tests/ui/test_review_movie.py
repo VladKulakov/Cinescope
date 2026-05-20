@@ -1,7 +1,7 @@
 import time, pytest, allure
 from playwright.sync_api import Page
 from models.ui_page_object.сinescop_review_page import CinescopReviewPage
-from pytest_check import check
+
 
 @allure.epic("Тестирование UI")
 @allure.feature("Тестирование Страницы Movie")
