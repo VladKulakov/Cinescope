@@ -1,1 +1,0 @@
-Project dir resolved to: C:\Cinescope\test_playwright
