@@ -1,6 +1,7 @@
 import allure
 from playwright.sync_api import expect, Page
-from models.page_object_models import BasePage
+from models.ui_page_object.page_object_base import BasePage
+
 
 class CinescopReviewPage(BasePage):
     def __init__(self, page: Page):

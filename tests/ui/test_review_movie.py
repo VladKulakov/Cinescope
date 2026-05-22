@@ -1,4 +1,4 @@
-import time, pytest, allure
+import pytest, allure
 from playwright.sync_api import Page
 from models.ui_page_object.сinescop_review_page import CinescopReviewPage
 
@@ -14,11 +14,9 @@ class TestFeedbackPage:
         page.all_elements_visibility_check_auth()
         page.fill_review('Отличный фильм на вечер')
         page.check_pop_up_message()
-        time.sleep(5)
 
     @allure.title("Проверяем, что без авторизации, не можем оставить отзыв под фильмом")
     def test_feedback_page_not_auth(self, page: Page):
         page = CinescopReviewPage(page)
         page.open()
         page.all_elements_visibility_check_not_auth()
-        time.sleep(5)

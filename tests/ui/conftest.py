@@ -1,5 +1,5 @@
 import pytest
-from test_playwright.common.common import Tools
+from tests.ui.common.common import Tools
 
 
 DEFAULT_UI_TIMEOUT = 30000  # Пример значения тайм-аута
