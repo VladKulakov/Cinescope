@@ -1,8 +1,4 @@
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 class MoviesDbCreds:
     HOST = os.getenv('DB_MOVIES_HOST')
