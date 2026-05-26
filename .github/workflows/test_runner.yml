@@ -51,7 +51,7 @@ jobs:
 
     - name: Run tests
       run: |
-        python -m pytest tests/api/test_get_movies.py::TestGetMovies::test_get_movies_default -v --alluredir=allure-results
+        python -m pytest tests/api/test_movies_api.py -v --alluredir=allure-results
 
     - name: Upload Allure results
       if: always()
