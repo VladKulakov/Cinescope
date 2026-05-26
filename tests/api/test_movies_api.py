@@ -32,7 +32,7 @@ class TestMovieApi:
         with allure.step("Проверяем, что результат не пустой"):
             assert  response_json["movies"]
         with allure.step("Проверяем, что фильмов столько, сколько ожилаем"):
-            assert response_json["pageSize"] == size["pageSize"], f"В параметрах установили вывод {size["pageSize"]} Афиш!"
+            assert response_json["pageSize"] == size["pageSize"], f"В параметрах установили вывод {size['pageSize']} Афиш!"
 
     @allure.epic("Тестирование Movies")
     @allure.story("Получение фильмов с фильтрацией price, обычный юзер")
@@ -94,7 +94,7 @@ class TestMovieApi:
         ("super_admin", 201),
         ("common_admin", 403),
         ("common_user", 403)])
-    def test_create_moviess(self, user, status, request, generate_movie):
+    def test_create_movies(self, user, status, request, generate_movie):
         user = request.getfixturevalue(user)
         response = user.api.movies_api.create_movie(generate_movie, status)
         if response.status_code == 201:
@@ -110,7 +110,7 @@ class TestMovieApi:
     ("super_admin", 200),
     ("common_admin", 200),
     ("common_user", 200)])
-    def test_get_moviess(self, user, expected_status, request, created_movie_id):
+    def test_get_movies(self, user, expected_status, request, created_movie_id):
         user = request.getfixturevalue(user)
         response = user.api.movies_api.get_movie(created_movie_id, expected_status)
         response = response.json()
@@ -124,7 +124,7 @@ class TestMovieApi:
         ("super_admin", 200),
         ("common_admin", 403),
         ("common_user", 403)])
-    def test_delete_moviess(self, user, request, expected_status, created_movie_id):
+    def test_delete_movies(self, user, request, expected_status, created_movie_id):
         user = request.getfixturevalue(user)
         user.api.movies_api.delete_movie(created_movie_id, expected_status)
 
